@@ -1,0 +1,30 @@
+from socket import *
+
+port = 9000
+serverSocket = socket(AF_INET,SOCK_STREAM)
+
+nrKlientit = 0
+
+print("|---------------------------------------|")
+print("|            FiekTCP Serveri            |")
+print("|---------------------------------------|")
+
+
+# Mundeson qe cdo IP-adrese te kete mundesi te lidhet ne server permes portit 9000
+serverSocket.bind(('',port))
+print("\nServeri eshte lidhur ne portin %s" %(port))
+# Deri ne 10 klienta mund te presin per lidhje ne server, ndersa numri i klientave te lidhur eshte i palimituar
+serverSocket.listen(10)
+print("\n\nDuke pritur lidhjen...")
+
+while True:
+    connectionSocket, adresa = serverSocket.accept()
+    nrKlientit = nrKlientit + 1
+    print("\nKlienti me numer %s u lidh ne server"%klientiNr)
+
+    
+
+
+
+
+
