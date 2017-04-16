@@ -1,9 +1,14 @@
 from socket import *
+import time
+import random
 
 port = 9000
 serverSocket = socket(AF_INET,SOCK_STREAM)
 
 nrKlientit = 0
+metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL']
+zanore = ['A','E','I','O','U','Y']
+konvertoMetodat = ['CelciusToKelvin','CelciusToFahreheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
 print("|---------------------------------------|")
 print("|            FiekTCP Serveri            |")
@@ -17,14 +22,87 @@ print("\nServeri eshte lidhur ne portin %s" %(port))
 serverSocket.listen(10)
 print("\n\nDuke pritur lidhjen...")
 
+
 while True:
-    connectionSocket, adresa = serverSocket.accept()
+    connectionSocket, adresa= serverSocket.accept()
     nrKlientit = nrKlientit + 1
     print("\nKlienti me numer %s u lidh ne server"%nrKlientit)
+    mesazhiNgaKlienti = connectionSocket.recv(128).decode("ASCII")
+    mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
+    komanda = mesazhiPerPerpunim[0]
+    opsioni = mesazhiPerPerpunim[1]
+    teksti  = mesazhiPerPerpunim[2]
+    ipKlientit = adresa[0]
+    hosti = gethostbyname()
+    portiKlientit = adresa[1]
+    
+    keno = []
+    f = 1
+
+    if komanda in metodat:
+            if (mesazhiNgaKlienti == metodat[0]):
+                pergjigja = "IP adresa e klientit është "+ipKlientit
+            elif (mesazhiNgaKlienti == metodat[1]):
+                pergjigja = "Klienti është duke përdorur portin "+portiKlientit
+            
+            elif (komanda == metodat[2]):
+                #metoda zanore
+
+            elif (komanda == metodat[3]):
+                pergjigja = mesazhiNgaKlienti
+
+            elif (komanda==metodat[4]):
+                pergjigja = "Emri i klientit është "+hosti
+
+            elif (mesazhiNgaKlienti == metodat[5]):
+                #kodi per TIME
+
+            elif (mesazhiNgaKlienti == metodat[6]):
+                for i in range(0,19):
+                    numriRastesishem = random.randint(1,80) 
+                    keno.insert(i,numriRastesishem)
+                pergjigja = keno
+            
+            elif (komanda == metodat[7]):
+                if (opsioni == konvertoMetodat[0]):
+                    #CtK
+                    prgj = 273.16+int(teksti)
+                    pergjigja = prgj
+                elif (opsioni == konvertoMetodat[1]):
+                    #CtF
+                    prgj = (int(teksti)*9/5)+32
+                    pergjigja = prgj
+                elif (opsioni == konvertoMetodat[2]):
+                    #KtF
+                    prgj = ((int(teksti)-273.16)*9/5)+32
+                    pergjigja = prgj
+                elif (opsioni == konvertoMetodat[3]):
+                    #KtC
+                    prgj = int(teksti)-273.16
+                    pergjigja = prgj
+                elif (opsioni == konvertoMetodat[4]):
+                    #FtK
+
+                elif (opsioni == konvertoMetodat[5]):
+                    #FtC
+                elif (opsioni == konvertoMetodat[6]):
+                    #PtK
+                elif (opsioni == konvertoMetodat[7]):
+                    #KtP
+
+                #kodi per KONVERTO
+
+            elif (komanda == metodat[8]):
+                for i in range (1,opsioni):
+                    f = f * i
+                pergjigja = f
+    else:
+        print("'"+mesazhiNgaKlienti+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+
+
+
+
+  
 
     
-
-
-
-
-
+    
