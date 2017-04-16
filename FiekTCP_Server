@@ -20,7 +20,7 @@ print("\n\nDuke pritur lidhjen...")
 while True:
     connectionSocket, adresa = serverSocket.accept()
     nrKlientit = nrKlientit + 1
-    print("\nKlienti me numer %s u lidh ne server"%klientiNr)
+    print("\nKlienti me numer %s u lidh ne server"%nrKlientit)
 
     
 
