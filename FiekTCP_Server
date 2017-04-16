@@ -27,18 +27,23 @@ while True:
     connectionSocket, adresa= serverSocket.accept()
     nrKlientit = nrKlientit + 1
     print("\nKlienti me numer %s u lidh ne server"%nrKlientit)
-    mesazhiNgaKlienti = connectionSocket.recv(128).decode("ASCII")
-    mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
+    mesazhiNgaKlienti = connectionSocket.recv(128).decode("UTF-8")
+    print("\nKerkesa e klientit: "+mesazhiNgaKlienti)
+    mesazhiPerPerpunim = mesazhiNgaKlienti.split(" ")
     komanda = mesazhiPerPerpunim[0]
-    opsioni = mesazhiPerPerpunim[1]
-    teksti  = mesazhiPerPerpunim[2]
+    if (len(mesazhiPerPerpunim) == 2):
+        opsioni = mesazhiPerPerpunim[1]
+    if (len(mesazhiPerPerpunim) == 3):
+        teksti  = mesazhiPerPerpunim[2]
+
     ipKlientit = adresa[0]
-    hosti = gethostbyname()
+    hosti = gethostbyname(gethostname())
     portiKlientit = adresa[1]
-    
     keno = []
     f = 1
-
+    pergjigja = " "
+    njesia = " "
+    nrZanore = 0
     if komanda in metodat:
             if (mesazhiNgaKlienti == metodat[0]):
                 pergjigja = "IP adresa e klientit është "+ipKlientit
@@ -47,6 +52,10 @@ while True:
             
             elif (komanda == metodat[2]):
                 #metoda zanore
+                for i in range(0,len(opsioni)):
+                    if(opsioni[i] in zanore):
+                        nrZanore = nrZanore + 1
+                pergjigja = "Teksti i dërguar përmbanë "+nrZanore+" zanore."
 
             elif (komanda == metodat[3]):
                 pergjigja = mesazhiNgaKlienti
@@ -55,50 +64,73 @@ while True:
                 pergjigja = "Emri i klientit është "+hosti
 
             elif (mesazhiNgaKlienti == metodat[5]):
-                #kodi per TIME
+                t = time.localtime()    
+                print (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
 
             elif (mesazhiNgaKlienti == metodat[6]):
                 for i in range(0,19):
                     numriRastesishem = random.randint(1,80) 
                     keno.insert(i,numriRastesishem)
-                pergjigja = keno
+                pergjigja = str(keno)
             
             elif (komanda == metodat[7]):
                 if (opsioni == konvertoMetodat[0]):
                     #CtK
                     prgj = 273.16+int(teksti)
-                    pergjigja = prgj
+                    pergjigja = str(prgj)
+                    njesia = " Kelvin"
                 elif (opsioni == konvertoMetodat[1]):
                     #CtF
                     prgj = (int(teksti)*9/5)+32
-                    pergjigja = prgj
+                    pergjigja = str(prgj)
+                    njesia = " Farenhajt"
                 elif (opsioni == konvertoMetodat[2]):
                     #KtF
                     prgj = ((int(teksti)-273.16)*9/5)+32
-                    pergjigja = prgj
+                    pergjigja = str(prgj)
+                    njesia = " Farenhajt"
                 elif (opsioni == konvertoMetodat[3]):
                     #KtC
                     prgj = int(teksti)-273.16
-                    pergjigja = prgj
+                    pergjigja = str(prgj)
+                    njesia = " Celcius"
                 elif (opsioni == konvertoMetodat[4]):
                     #FtK
+                    prgj = ((int(teksti)-32)*5/9)+273.16
+                    pergjigja = str(prgj)
+                    njesia = " Kelvin"
 
                 elif (opsioni == konvertoMetodat[5]):
                     #FtC
+                    prgj = ((int(teksti)-32)*5/9)
+                    pergjigja = str(prgj)
+                    njesia = " Celcius"
                 elif (opsioni == konvertoMetodat[6]):
                     #PtK
+                    prgj = int(teksti) / 2.2
+                    pergjigja = str(prgj)
+                    njesia = " Kilogram"
                 elif (opsioni == konvertoMetodat[7]):
                     #KtP
+                    prgj = int(teksti)*2.2
+                    pergjigja = str(prgj)
+                    njesia = " Pound"
 
-                #kodi per KONVERTO
+
+
+
+                else: pergjigja = ("'"+mesazhiNgaKlienti+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+                
 
             elif (komanda == metodat[8]):
                 for i in range (1,opsioni):
                     f = f * i
                 pergjigja = f
     else:
-        print("'"+mesazhiNgaKlienti+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+        pergjigja = ("'"+komanda+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+    mesazhiKthyer = pergjigja + njesia
 
+    connectionSocket.send(mesazhiKthyer.encode("UTF-8"))
 
 
 
