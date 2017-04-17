@@ -1,6 +1,7 @@
 from socket import *
 import time
 import random
+from datetime import datetime
 
 port = 9000
 serverSocket = socket(AF_INET,SOCK_STREAM)
@@ -46,7 +47,7 @@ while True:
             njesia = " "
             nrZanore = 0
     
-            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA']
+            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA']
             zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
             konvertoMetodat = ['CelciusToKelvin','CelciusToFahreheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
@@ -143,7 +144,25 @@ while True:
                     else: 
                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
                 elif (mesazhiPerPerpunim[0] == metodat[9]):
-                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n" 
+                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
+                elif (mesazhiPerPerpunim[0] == metodat[10]):  # Metoda DITET  by ERZEN GEGAJ
+                    if len(mesazhiPerPerpunim) == 4:
+                        if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit()) & (mesazhiPerPerpunim[3].isdigit()) & (int(mesazhiPerPerpunim[1]) <= 31 )& (int(mesazhiPerPerpunim[1]) >= 1) & (int(mesazhiPerPerpunim[2]) <= 12) & (int(mesazhiPerPerpunim[2]) >= 1) & (int(mesazhiPerPerpunim[3]) <= 2017) & (int(mesazhiPerPerpunim[3]) >= 1970 )):
+                            if (int(mesazhiPerPerpunim[1]) >= 29) & (int(mesazhiPerPerpunim[2]) == 2):
+                                pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
+                            else:
+                                ditet = datetime.now() - datetime(int(mesazhiPerPerpunim[3]),int(mesazhiPerPerpunim[2]),int(mesazhiPerPerpunim[1]))
+                                pergjigja = "Ju jeni %s ditë i vjetër" % (ditet.days)
+                    else:       
+                        pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
+                elif (mesazhiPerPerpunim[0] == metodat[11]):  #METODA SHPEJTESIA by ERZEN GEGAJ
+                     if len(mesazhiPerPerpunim) == 3:
+                         if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit())):
+                             shpejtesia = int(mesazhiPerPerpunim[1]) / int(mesazhiPerPerpunim[2])
+                             pergjigja = "Shpejtesia e llogaritur është " + str('%2.2f' % shpejtesia) + " km/h"
+                     else:
+                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                    
                 else:
                     pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
             else:
