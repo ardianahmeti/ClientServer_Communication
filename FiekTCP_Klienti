@@ -1,21 +1,20 @@
 from socket import *
 
-server = 'localhost'
+server = '127.0.0.1'
 port = 9000
 
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
-clientSocket.connect((server, port))
-
-
-
-while True:
-    try:
-        mesazhiPerDergim = input("Kerkesa: ")
+try:
+    clientSocket.connect((server, port))
+    while True:
+        mesazhiPerDergim = input("Mesazhi: ")
         clientSocket.send(mesazhiPerDergim.encode("ASCII"))
-        pergjigjjaNgaServeri = clientSocket.recv(1024)
+        pergjigjjaNgaServeri = clientSocket.recv(2048)
         print("Serveri: "+pergjigjjaNgaServeri.decode("UTF-8"))
-    except Exception:
-        print("Serveri eshte ndalur...!")
-        clientSocket.close()
-    
+
+except ConnectionRefusedError:
+    print("Serveri nuk eshte i startuar!")
+
+except ConnectionResetError:
+    print("Serveri ka ndaluar!")
