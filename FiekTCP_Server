@@ -71,7 +71,7 @@ while True:
                 elif (mesazhiPerPerpunim[0] == metodat[3]):
                     pergjigja = mesazhiNgaKlienti[(mesazhiNgaKlienti.index(' ')+1):]
 
-                elif (mesazhiPerPerpunim[0]==metodat[4]):
+                elif (mesazhiNgaKlienti ==metodat[4]):
                     pergjigja = "Emri i serverit është "+hosti
                         
                 elif (mesazhiNgaKlienti == metodat[5]):
@@ -144,6 +144,8 @@ while True:
                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
                 elif (mesazhiPerPerpunim[0] == metodat[9]):
                     pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n" 
+                else:
+                    pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
             else:
                 pergjigja = ("'"+mesazhiPerPerpunim[0]+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
             mesazhiKthyer = pergjigja + njesia
@@ -157,6 +159,6 @@ while True:
 
 
   
-
+        
     
     
