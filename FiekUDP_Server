@@ -46,7 +46,7 @@ while True:
 
     ipKlientit = adresa[0]
     portiKlientit = adresa[1]
-    hosti = gethostbyname(gethostname())
+    hosti = gethostname()
    
     keno = []
     f = 1
@@ -63,23 +63,23 @@ while True:
 
     if komanda in metodat:
         if (komanda == metodat[0]):
-            pergjigja = "IP adresa e klientit �sht� "+ipKlientit
+            pergjigja = "IP adresa e klientit është "+ipKlientit
 
         elif (mesazhiNgaKlienti == metodat[1]):
-            pergjigja = "Klienti �sht� duke p�rdorur portin "+str(portiKlientit)
+            pergjigja = "Klienti është duke përdorur portin "+str(portiKlientit)
 
         elif (komanda == metodat[2]):
             #metoda zanore
             for i in range(0,len(opsioni)):
                 if(opsioni[i] in zanore):
                     nrZanore = nrZanore + 1
-            pergjigja = "Teksti i d�rguar p�rmban� "+str(nrZanore)+" zanore."
+            pergjigja = "Teksti i dërguar përmbanë "+str(nrZanore)+" zanore."
 
         elif (komanda == metodat[3]):
             pergjigja = mesazhiNgaKlienti
 
         elif (komanda==metodat[4]):
-            pergjigja = "Emri i klientit �sht� "+hosti
+            pergjigja = "Emri i klientit është "+hosti
 
         elif (mesazhiNgaKlienti == metodat[5]):
             t = time.localtime()    
