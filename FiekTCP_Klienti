@@ -1,0 +1,21 @@
+from socket import *
+
+server = 'localhost'
+port = 9000
+
+clientSocket = socket(AF_INET, SOCK_STREAM)
+
+clientSocket.connect((server, port))
+
+
+
+while True:
+    try:
+        mesazhiPerDergim = input("Kerkesa: ")
+        clientSocket.send(mesazhiPerDergim.encode("ASCII"))
+        pergjigjjaNgaServeri = clientSocket.recv(1024)
+        print("Serveri: "+pergjigjjaNgaServeri.decode("UTF-8"))
+    except Exception:
+        print("Serveri eshte fikur!...")
+        clientSocket.close()
+    
