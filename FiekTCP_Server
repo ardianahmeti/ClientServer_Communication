@@ -21,126 +21,139 @@ print("\n\nDuke pritur lidhjen...")
 
 
 while True:
+    
+
     connectionSocket, adresa= serverSocket.accept()
     nrKlientit = nrKlientit + 1
     print("\nKlienti me numer %s u lidh ne server"%nrKlientit)
-    mesazhiNgaKlienti = connectionSocket.recv(1024).decode("ASCII")
-    print("\nKerkesa e klientit: "+mesazhiNgaKlienti)
+    while True:
+        try:
+            mesazhiNgaKlienti = connectionSocket.recv(128).decode("ASCII")
+            print("\nKerkesa e klientit: "+mesazhiNgaKlienti)
+            
+                
+                
+            mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
+    
 
-    hapesirat = mesazhiNgaKlienti.count(' ')
+            ipKlientit = adresa[0]
+            portiKlientit = adresa[1]
+            hosti = gethostname()
    
-    if (hapesirat == 0):
-        komanda = mesazhiNgaKlienti
-    elif (hapesirat == 1):
-        komanda = mesazhiNgaKlienti[0:mesazhiNgaKlienti.index(' ')]
-        opsioni = mesazhiNgaKlienti[mesazhiNgaKlienti.index(' '):]
-    elif (hapesirat >= 2):
-        komanda = mesazhiNgaKlienti[0:mesazhiNgaKlienti.index(' ')]
-        pjesaTjeterKerkeses = mesazhiNgaKlienti[mesazhiNgaKlienti.index(' '):]
-        opsioni = pjesaTjeterKerkeses[1:pjesaTjeterKerkeses.index(' ')]
-        teksti = pjesaTjeterKerkeses[pjesaTjeterKerkeses.index(' '):]
-
-   
-
-    ipKlientit = adresa[0]
-    portiKlientit = adresa[1]
-    hosti = gethostbyname(gethostname())
-   
-    keno = []
-    f = 1
-    pergjigja = " "
-    njesia = " "
-    nrZanore = 0
-
-    metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL']
-    zanore = ['A','E','I','O','U','Y']
-    konvertoMetodat = ['CelciusToKelvin','CelciusToFahreheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
+            keno = []
+            f = 1
+            pergjigja = " "
+            njesia = " "
+            nrZanore = 0
+    
+            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA']
+            zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
+            konvertoMetodat = ['CelciusToKelvin','CelciusToFahreheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
   
         
 
-    if komanda in metodat:
-        if (komanda == metodat[0]):
-            pergjigja = "IP adresa e klientit është "+ipKlientit
+            if mesazhiPerPerpunim[0] in metodat:
+                if (mesazhiNgaKlienti == metodat[0]):
+                    pergjigja = "IP adresa e klientit është "+ipKlientit
+                        
+                elif (mesazhiNgaKlienti == metodat[1]):
+                    pergjigja = "Klienti është duke përdorur portin "+str(portiKlientit)
+                        
+                elif (mesazhiPerPerpunim[0] == metodat[2]):
+                    #metoda zanore
+                    teksti = mesazhiNgaKlienti[mesazhiNgaKlienti.index(' '):]
+                    for i in range(0,len(teksti)):
+                        if(teksti[i] in zanore):
+                            nrZanore = nrZanore + 1
+                    pergjigja = "Teksti i dërguar përmbanë "+str(nrZanore)+" zanore."
 
-        elif (mesazhiNgaKlienti == metodat[1]):
-            pergjigja = "Klienti është duke përdorur portin "+str(portiKlientit)
+                elif (mesazhiPerPerpunim[0] == metodat[3]):
+                    pergjigja = mesazhiNgaKlienti[(mesazhiNgaKlienti.index(' ')+1):]
 
-        elif (komanda == metodat[2]):
-            #metoda zanore
-            for i in range(0,len(opsioni)):
-                if(opsioni[i] in zanore):
-                    nrZanore = nrZanore + 1
-            pergjigja = "Teksti i dërguar përmbanë "+str(nrZanore)+" zanore."
+                elif (mesazhiPerPerpunim[0]==metodat[4]):
+                    pergjigja = "Emri i serverit është "+hosti
+                        
+                elif (mesazhiNgaKlienti == metodat[5]):
+                    t = time.localtime()    
+                    pergjigja = (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
 
-        elif (komanda == metodat[3]):
-            pergjigja = mesazhiNgaKlienti
+                elif (mesazhiNgaKlienti == metodat[6]):
+                    for i in range(0,19):
+                        numriRastesishem = random.randint(1,80) 
+                        keno.insert(i,numriRastesishem)
+                    pergjigja = str(keno)
 
-        elif (komanda==metodat[4]):
-            pergjigja = "Emri i klientit është "+hosti
-
-        elif (mesazhiNgaKlienti == metodat[5]):
-            t = time.localtime()    
-            pergjigja = (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
-
-        elif (mesazhiNgaKlienti == metodat[6]):
-            for i in range(0,19):
-                numriRastesishem = random.randint(1,80) 
-                keno.insert(i,numriRastesishem)
-            pergjigja = str(keno)
-
-        elif (komanda == metodat[7]):
-            if (opsioni == konvertoMetodat[0]):
-                #CtK
-                prgj = 273.16+int(teksti)
-                pergjigja = str(prgj)
-                njesia = " Kelvin"
-            elif (opsioni == konvertoMetodat[1]):
-                #CtF
-                prgj = (int(teksti)*9/5)+32
-                pergjigja = str(prgj)
-                njesia = " Farenhajt"
-            elif (opsioni == konvertoMetodat[2]):
-                #KtF
-                prgj = ((int(teksti)-273.16)*9/5)+32
-                pergjigja = str(prgj)
-                njesia = " Farenhajt"
-            elif (opsioni == konvertoMetodat[3]):
-                #KtC
-                prgj = int(teksti)-273.16
-                pergjigja = str(prgj)
-                njesia = " Celcius"
-            elif (opsioni == konvertoMetodat[4]):
-                #FtK
-                prgj = ((int(teksti)-32)*5/9)+273.16
-                pergjigja = str(prgj)
-                njesia = " Kelvin"
-            elif (opsioni == konvertoMetodat[5]):
-                #FtC
-                prgj = ((int(teksti)-32)*5/9)
-                pergjigja = str(prgj)
-                njesia = " Celcius"
-            elif (opsioni == konvertoMetodat[6]):
-                #PtK
-                prgj = int(teksti) / 2.2
-                pergjigja = str(prgj)
-                njesia = " Kilogram"
-            elif (opsioni == konvertoMetodat[7]):
-                #KtP
-                prgj = int(teksti)*2.2
-                pergjigja = str(prgj)
-                njesia = " Pound"
-            else: pergjigja = "'"+mesazhiNgaKlienti+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar." 
+                elif (mesazhiPerPerpunim[0] == metodat[7]):
+                    opsioni = " "
+                    if len(mesazhiPerPerpunim) == 3:
+                        opsioni = mesazhiPerPerpunim[1]
+                        if(mesazhiPerPerpunim[2].isdigit()):
+                            if (opsioni == konvertoMetodat[0]):
+                                #CtK
+                                prgj = 273.16+int(mesazhiPerPerpunim[2])
+                                pergjigja = str(prgj)
+                                njesia = " Kelvin"
+                            elif (opsioni == konvertoMetodat[1]):
+                                #CtF
+                                prgj = (int(mesazhiPerPerpunim[2])*9/5)+32
+                                pergjigja = str(prgj)
+                                njesia = " Farenhajt"
+                            elif (opsioni == konvertoMetodat[2]):
+                                #KtF
+                                prgj = ((int(mesazhiPerPerpunim[2])-273.16)*9/5)+32
+                                pergjigja = str(prgj)
+                                njesia = " Farenhajt"
+                            elif (opsioni == konvertoMetodat[3]):
+                                #KtC
+                                prgj = int(mesazhiPerPerpunim[2])-273.16
+                                pergjigja = str(prgj)
+                                njesia = " Celcius"
+                            elif (opsioni == konvertoMetodat[4]):
+                                #FtK
+                                prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)+273.16
+                                pergjigja = str(prgj)
+                                njesia = " Kelvin"
+                            elif (opsioni == konvertoMetodat[5]):
+                                #FtC
+                                prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)
+                                pergjigja = str(prgj)
+                                njesia = " Celcius"
+                            elif (opsioni == konvertoMetodat[6]):
+                                #PtK
+                                prgj = int(mesazhiPerPerpunim[2]) / 2.2
+                                pergjigja = str(prgj)
+                                njesia = " Kilogram"
+                            elif (opsioni == konvertoMetodat[7]):
+                                #KtP
+                                prgj = int(mesazhiPerPerpunim[2])*2.2
+                                pergjigja = str(prgj)
+                                njesia = " Pound"
+                        else: pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                    else: pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                
+                elif (mesazhiPerPerpunim[0] == metodat[8]):
+                    if (len(mesazhiPerPerpunim) == 2):
+                        if mesazhiPerPerpunim[1].isdigit():
+                            for i in range (1,int(mesazhiPerPerpunim[1])+1):
+                                f = f * i
+                            pergjigja = str(f)
+                        else:
+                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                    else: 
+                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                elif (mesazhiPerPerpunim[0] == metodat[9]):
+                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n" 
+            else:
+                pergjigja = ("'"+mesazhiPerPerpunim[0]+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+            mesazhiKthyer = pergjigja + njesia
+            connectionSocket.send(mesazhiKthyer.encode("UTF-8"))
+            
     
-        elif (komanda == metodat[8]):
-            for i in range (1,int(opsioni)):
-                f = f * i
-            pergjigja = f
-    else:
-        pergjigja = ("'"+komanda+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
-    mesazhiKthyer = pergjigja + njesia
-    connectionSocket.send(mesazhiKthyer.encode("ASCII"))
-
+        except Exception:
+            print("Klienti numër "+str(nrKlientit)+" u diskonektua")
+            connectionSocket.close()
+            break
 
 
   
