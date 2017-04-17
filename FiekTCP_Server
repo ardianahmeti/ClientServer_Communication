@@ -2,6 +2,7 @@ from socket import *
 import time
 import random
 from datetime import datetime
+import string
 
 port = 9000
 serverSocket = socket(AF_INET,SOCK_STREAM)
@@ -47,7 +48,7 @@ while True:
             njesia = " "
             nrZanore = 0
     
-            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA','MESATARJA','PESHA']
+            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA','MESATARJA','PESHA','HOROSKOPIKINEZ','PASSWORD']
             zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
             konvertoMetodat = ['CelciusToKelvin','CelciusToFahrenheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
@@ -144,7 +145,7 @@ while True:
                     else: 
                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
                 elif (mesazhiPerPerpunim[0] == metodat[9]):
-                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nMESATARJA\tKthen mesataren e numrave \t\t\tMESATARJA{hapësirë}numri{hapësirë}numri...\nPESHA\t\tKthen peshën ideale për gjatësinë\t\tPESHA{hapësirë}gjatësia(në cm)\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
+                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nMESATARJA\tKthen mesataren e numrave \t\t\tMESATARJA{hapësirë}numri{hapësirë}numri...\nPESHA\t\tKthen peshën ideale për gjatësinë\t\tPESHA{hapësirë}gjatësia(në cm)\nHOROSKOPIKINEZ\tTregon horoskopin kinez e vitit të dhënë\tHOROSKOPIKINEZ{hapësirë}viti\nPASSWORD\tGjeneron nje fjalekalim me gjatesi => 4\t\tPASSWORD{hapësirë}gjatesia\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
                 
                 elif (mesazhiPerPerpunim[0] == metodat[10]):  # Metoda DITET  by ERZEN GEGAJ
                     if len(mesazhiPerPerpunim) == 4:
@@ -187,9 +188,58 @@ while True:
                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
                     else:
                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                      
-                         
-                             
+                elif (mesazhiPerPerpunim[0] == metodat[14]):
+                    if (len(mesazhiPerPerpunim) == 2):
+                        if mesazhiPerPerpunim[1].isdigit():
+                            if (int(mesazhiPerPerpunim[1])%12==0):
+                                  pergjigja = "Viti kinez : Majmun"
+                            elif (int(mesazhiPerPerpunim[1])%12==1):
+                                  pergjigja = "Viti kinez : Gjel"
+                            elif (int(mesazhiPerPerpunim[1])%12==2):
+                                  pergjigja = "Viti kinez : Qen"
+                            elif (int(mesazhiPerPerpunim[1])%12==3):
+                                  pergjigja = "Viti kinez : Derr"
+                            elif (int(mesazhiPerPerpunim[1])%12==4):
+                                  pergjigja = "Viti kinez : Mi"
+                            elif (int(mesazhiPerPerpunim[1])%12==5):
+                                  pergjigja = "Viti kinez : Dem"
+                            elif (int(mesazhiPerPerpunim[1])%12==6):
+                                  pergjigja = "Viti kinez : Tigër"
+                            elif (int(mesazhiPerPerpunim[1])%12==7):
+                                  pergjigja = "Viti kinez : Lepur"
+                            elif (int(mesazhiPerPerpunim[1])%12==8):
+                                  pergjigja = "Viti kinez : Dragon"
+                            elif (int(mesazhiPerPerpunim[1])%12==9):
+                                  pergjigja = "Viti kinez : Gjarper"
+                            elif (int(mesazhiPerPerpunim[1])%12==10):
+                                  pergjigja = "Viti kinez : Kali"
+                            elif (int(mesazhiPerPerpunim[1])==11):
+                                  pergjigja = "Viti kinez : Dele"
+                            else:
+                                pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                            
+                        else:
+                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                    else: 
+                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                elif (mesazhiPerPerpunim[0] == metodat[15]):
+                    if (len(mesazhiPerPerpunim) == 2):
+                        if (mesazhiPerPerpunim[1].isdigit()):
+                            if (int(mesazhiPerPerpunim[1]) >= 4 ):
+                                if  (int(mesazhiPerPerpunim[1]) < 35):
+                                    char_set = string.ascii_uppercase + string.ascii_lowercase + string.digits
+                                    pw= ''.join(random.sample(char_set*6, int(mesazhiPerPerpunim[1])))
+                                    pergjigja = "Passwordi i sugjeruar :"+str(pw)
+                                else:
+                                    pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35" 
+                            else:
+                                pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35"  
+                        else:
+                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
+                    else: 
+                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                
+                           
                 else:
                     pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
             else:
