@@ -16,6 +16,6 @@ while True:
         pergjigjjaNgaServeri = clientSocket.recv(1024)
         print("Serveri: "+pergjigjjaNgaServeri.decode("UTF-8"))
     except Exception:
-        print("Serveri eshte fikur!...")
+        print("Serveri eshte ndalur...!")
         clientSocket.close()
     
