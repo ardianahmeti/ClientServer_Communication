@@ -36,21 +36,21 @@ while True:
                 
             mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
     
+            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA']
+            zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
+            konvertoMetodat = ['CelciusToKelvin','CelciusToFahrenheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
             ipKlientit = adresa[0]
             portiKlientit = adresa[1]
             hosti = gethostname()
-   
             keno = []
             f = 1
+            nrZanore = 0
             pergjigja = " "
             njesia = " "
-            nrZanore = 0
+            
     
-            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA']
-            zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
-            konvertoMetodat = ['CelciusToKelvin','CelciusToFahreheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
-
+            
   
         
 
@@ -144,7 +144,7 @@ while True:
                     else: 
                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
                 elif (mesazhiPerPerpunim[0] == metodat[9]):
-                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
+                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nMESATARJA\tKthen mesataren e numrave \t\t\tMESATARJA{hapësirë}numri{hapësirë}numri...\nPESHA\t\tKthen peshën ideale për gjatësinë\t\tPESHA{hapësirë}gjatësia(në cm)\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
                 elif (mesazhiPerPerpunim[0] == metodat[10]): # metoda DITET by ERZEN GEGAJ
                     if len(mesazhiPerPerpunim) == 4:
                         if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit()) & (mesazhiPerPerpunim[3].isdigit()) & (int(mesazhiPerPerpunim[1]) <= 31 )& (int(mesazhiPerPerpunim[1]) >= 1) & (int(mesazhiPerPerpunim[2]) <= 12) & (int(mesazhiPerPerpunim[2]) >= 1) & (int(mesazhiPerPerpunim[3]) <= 2017) & (int(mesazhiPerPerpunim[3]) >= 1970 )):
@@ -162,6 +162,32 @@ while True:
                              pergjigja = "Shpejtesia e llogaritur është " + str('%2.2f' % shpejtesia) + " km/h"
                      else:
                          pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."    
+                
+                elif (mesazhiPerPerpunim[0] == metodat[12]):
+                    mesatarja = 0
+                    shuma = 0
+                    for i in range(1,len(mesazhiPerPerpunim)):
+                        shuma = shuma + int(mesazhiPerPerpunim[i])
+                        mesatarja = shuma/(len(mesazhiPerPerpunim)-1)
+                    pergjigja = str(mesatarja)
+
+
+                   
+                elif (mesazhiPerPerpunim[0] == metodat[13]):
+                    if(len(mesazhiPerPerpunim) == 2):
+                       if (mesazhiPerPerpunim[1].isdigit()):
+                           if (int(mesazhiPerPerpunim[1]) >= 100):
+                               pesha = (int(mesazhiPerPerpunim[1])-100)-((int(mesazhiPerPerpunim[1])-100)/10)
+                               njesia = "kg"
+                               pergjigja = "Pesha ideale për gjatësinë tuaj është "+str(pesha)
+                           else:
+                               pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                       else:
+                           pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                    else:
+                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
+                      
+
                 else:
                     pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
             else:
