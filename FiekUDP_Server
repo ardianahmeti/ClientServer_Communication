@@ -36,7 +36,7 @@ while True:
                 
             mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
     
-            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA']
+            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA','MESATARJA','PESHA']
             zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
             konvertoMetodat = ['CelciusToKelvin','CelciusToFahrenheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
 
