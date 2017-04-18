@@ -3,306 +3,331 @@ import time
 import random
 from datetime import datetime
 import string
+from threading import Thread
+from socketserver import ThreadingMixIn
 
-port = 9000
-serverSocket = socket(AF_INET,SOCK_STREAM)
 
-nrKlientit = 0
+
+
+
+class ClientThread(Thread):
+
+    def __init__(self,ip,port):
+        Thread.__init__(self)
+        self.ip=ip
+        self.port=port
+        print("\nKlienti me IP %s u lidh ne server"%ip)
+
+    def run(self):
+        while True:
+            try:
+                    mesazhiNgaKlienti = connectionSocket.recv(128).decode("ASCII")
+                    print("\nKerkesa e klientit: "+mesazhiNgaKlienti)
+            
+                
+                
+                    mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
+    
+
+                    ipKlientit = ip
+                    portiKlientit = port
+                    hosti = gethostname()
+   
+                    keno = []
+                    f = 1
+                    pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                    njesia = " "
+                    nrZanore = 0
+    
+                    metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA','MESATARJA','PESHA','HOROSKOPIKINEZ','PASSWORD','LARTESIA','PAGA']
+                    zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
+                    konvertoMetodat = ['CelciusToKelvin','CelciusToFahrenheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
+
+  
+        
+
+                    if mesazhiPerPerpunim[0] in metodat:
+                        if (mesazhiNgaKlienti == metodat[0]):
+                            pergjigja = "IP adresa e klientit eshte "+ipKlientit
+                        
+                        elif (mesazhiNgaKlienti == metodat[1]):
+                            pergjigja = "Klienti eshte duke perdorur portin "+str(portiKlientit)
+                        
+                        elif (mesazhiPerPerpunim[0] == metodat[2]):
+                            #metoda zanore
+                            teksti = mesazhiNgaKlienti[mesazhiNgaKlienti.index(' '):]
+                            for i in range(0,len(teksti)):
+                                if(teksti[i] in zanore):
+                                    nrZanore = nrZanore + 1
+                            pergjigja = "Teksti i derguar permbane "+str(nrZanore)+" zanore."
+
+                        elif (mesazhiPerPerpunim[0] == metodat[3]):
+                            pergjigja = mesazhiNgaKlienti[(mesazhiNgaKlienti.index(' ')+1):]
+
+                        elif (mesazhiNgaKlienti ==metodat[4]):
+                            pergjigja = "Emri i serverit eshte "+hosti
+                        
+                        elif (mesazhiNgaKlienti == metodat[5]):
+                            t = time.localtime()    
+                            pergjigja = (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
+
+                        elif (mesazhiNgaKlienti == metodat[6]):
+                            for i in range(0,20):
+                                numriRastesishem = random.randint(1,80) 
+                                keno.insert(i,numriRastesishem)
+                            pergjigja = str(keno)
+
+                        elif (mesazhiPerPerpunim[0] == metodat[7]):
+                            opsioni = " "
+                            if len(mesazhiPerPerpunim) == 3:
+                                opsioni = mesazhiPerPerpunim[1]
+                                if(mesazhiPerPerpunim[2].isdigit()):
+                                    if (opsioni == konvertoMetodat[0]):
+                                        #CtK
+                                        prgj = 273.16+int(mesazhiPerPerpunim[2])
+                                        pergjigja = str(prgj)
+                                        njesia = " Kelvin"
+                                    elif (opsioni == konvertoMetodat[1]):
+                                        #CtF
+                                        prgj = (int(mesazhiPerPerpunim[2])*9/5)+32
+                                        pergjigja = str(prgj)
+                                        njesia = " Farenhajt"
+                                    elif (opsioni == konvertoMetodat[2]):
+                                        #KtF
+                                        prgj = ((int(mesazhiPerPerpunim[2])-273.16)*9/5)+32
+                                        pergjigja = str(prgj)
+                                        njesia = " Farenhajt"
+                                    elif (opsioni == konvertoMetodat[3]):
+                                        #KtC
+                                        prgj = int(mesazhiPerPerpunim[2])-273.16
+                                        pergjigja = str(prgj)
+                                        njesia = " Celcius"
+                                    elif (opsioni == konvertoMetodat[4]):
+                                        #FtK
+                                        prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)+273.16
+                                        pergjigja = str(prgj)
+                                        njesia = " Kelvin"
+                                    elif (opsioni == konvertoMetodat[5]):
+                                        #FtC
+                                        prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)
+                                        pergjigja = str(prgj)
+                                        njesia = " Celcius"
+                                    elif (opsioni == konvertoMetodat[6]):
+                                        #PtK
+                                        prgj = int(mesazhiPerPerpunim[2]) / 2.2
+                                        pergjigja = str(prgj)
+                                        njesia = " Kilogram"
+                                    elif (opsioni == konvertoMetodat[7]):
+                                        #KtP
+                                        prgj = int(mesazhiPerPerpunim[2])*2.2
+                                        pergjigja = str(prgj)
+                                        njesia = " Pound"
+                                    else: pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                                else: pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                            else: pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                
+                        elif (mesazhiPerPerpunim[0] == metodat[8]):
+                            if (len(mesazhiPerPerpunim) == 2):
+                                if mesazhiPerPerpunim[1].isdigit():
+                                    for i in range (1,int(mesazhiPerPerpunim[1])+1):
+                                        f = f * i
+                                    pergjigja = str(f)
+                                else:
+                                    pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                            else: 
+                                pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[9]):
+                            pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPershkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresen e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve ne tekst\t\t\tZANORE{hapesire}teksti\nPRINTO\t\tShtyp fjaline e derguar\t\t\t\tPRINTO{hapesire}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohen aktuale ne Server\t\t\tTIME\nKENO\t\tKthen 20 numra te rastesishem nga 1 deri ne 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit te dhene\t\tFAKTORIEL{hapesire}numri\nDITET\t\tTregon se sa dite i vjeter jeni\t\t\tDITET{hapesire}viti i lindjes{hapesire}muaji{hapesire}dita\nSHPEJTESIA\tLlogarite shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapesire}rruga{hapesire}koha\nMESATARJA\tKthen mesataren e numrave \t\t\tMESATARJA{hapesire}numri{hapesire}numri...\nPESHA\t\tKthen peshen ideale per gjatesine\t\tPESHA{hapesire}gjatesia(ne cm)\nHOROSKOPIKINEZ\tTregon horoskopin kinez e vitit te dhene\tHOROSKOPIKINEZ{hapesire}viti\nPASSWORD\tGjeneron nje fjalekalim me gjatesi => 4\t\tPASSWORD{hapesire}gjatesia\nLARTESIA\tKthen lartesin mbidetare te qyteteve te Kosoves\tLARTESIA{hapesire}Qyteti\nPAGA\t\tPagen bruto e kthen ne neto\t\t\tPAGA{hapesire}paga\nKONVERTO\tKonverton njesite \t\t\t\tKONVERTO{hapesire}opsioni{hapesire}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
+                
+                        elif (mesazhiPerPerpunim[0] == metodat[10]):  # Metoda DITET  by ERZEN GEGAJ
+                            if len(mesazhiPerPerpunim) == 4:
+                                if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit()) & (mesazhiPerPerpunim[3].isdigit()) & (int(mesazhiPerPerpunim[1]) <= 31 )& (int(mesazhiPerPerpunim[1]) >= 1) & (int(mesazhiPerPerpunim[2]) <= 12) & (int(mesazhiPerPerpunim[2]) >= 1) & (int(mesazhiPerPerpunim[3]) <= 2017) & (int(mesazhiPerPerpunim[3]) >= 1970 )):
+                                    if (int(mesazhiPerPerpunim[1]) >= 29) & (int(mesazhiPerPerpunim[2]) == 2):
+                                        pergjigja = "Kjo date nuk ekziston ! Shtypni NDIHMA per t'u informuar."
+                                    else:
+                                        ditet = datetime.now() - datetime(int(mesazhiPerPerpunim[3]),int(mesazhiPerPerpunim[2]),int(mesazhiPerPerpunim[1]))
+                                        pergjigja = "Ju jeni %s dite i vjeter" % (ditet.days)
+                                else:
+                                    pergjigja = "Kjo date nuk ekziston ! Shtypni NDIHMA per t'u informuar."
+                            else:       
+                                pergjigja = "Kjo date nuk ekziston ! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[11]):  #METODA SHPEJTESIA by ERZEN GEGAJ
+                             if len(mesazhiPerPerpunim) == 3:
+                                 if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit())):
+                                     shpejtesia = int(mesazhiPerPerpunim[1]) / int(mesazhiPerPerpunim[2])
+                                     pergjigja = "Shpejtesia e llogaritur eshte " + str('%2.2f' % shpejtesia) + " km/h"
+                             else:
+                                 pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                
+                        elif (mesazhiPerPerpunim[0] == metodat[12]):
+                            mesatarja = 0
+                            shuma = 0
+                            for i in range(1,len(mesazhiPerPerpunim)):
+                                shuma = shuma + int(mesazhiPerPerpunim[i])
+                                mesatarja = shuma/(len(mesazhiPerPerpunim)-1)
+                            pergjigja = str(mesatarja)
+
+
+                   
+                        elif (mesazhiPerPerpunim[0] == metodat[13]):
+                            if(len(mesazhiPerPerpunim) == 2):
+                               if (mesazhiPerPerpunim[1].isdigit()):
+                                   if (int(mesazhiPerPerpunim[1]) >= 100):
+                                       pesha = (int(mesazhiPerPerpunim[1])-100)-((int(mesazhiPerPerpunim[1])-100)/10)
+                                       njesia = "kg"
+                                       pergjigja = "Pesha ideale per gjatesine tuaj eshte "+str(pesha)
+                                   else:
+                                       pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                               else:
+                                   pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                            else:
+                                pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[14]):
+                            if (len(mesazhiPerPerpunim) == 2):
+                                if mesazhiPerPerpunim[1].isdigit():
+                                    if (int(mesazhiPerPerpunim[1])%12==0):
+                                          pergjigja = "Viti kinez : Majmun"
+                                    elif (int(mesazhiPerPerpunim[1])%12==1):
+                                          pergjigja = "Viti kinez : Gjel"
+                                    elif (int(mesazhiPerPerpunim[1])%12==2):
+                                          pergjigja = "Viti kinez : Qen"
+                                    elif (int(mesazhiPerPerpunim[1])%12==3):
+                                          pergjigja = "Viti kinez : Derr"
+                                    elif (int(mesazhiPerPerpunim[1])%12==4):
+                                          pergjigja = "Viti kinez : Mi"
+                                    elif (int(mesazhiPerPerpunim[1])%12==5):
+                                          pergjigja = "Viti kinez : Dem"
+                                    elif (int(mesazhiPerPerpunim[1])%12==6):
+                                          pergjigja = "Viti kinez : Tiger"
+                                    elif (int(mesazhiPerPerpunim[1])%12==7):
+                                          pergjigja = "Viti kinez : Lepur"
+                                    elif (int(mesazhiPerPerpunim[1])%12==8):
+                                          pergjigja = "Viti kinez : Dragon"
+                                    elif (int(mesazhiPerPerpunim[1])%12==9):
+                                          pergjigja = "Viti kinez : Gjarper"
+                                    elif (int(mesazhiPerPerpunim[1])%12==10):
+                                          pergjigja = "Viti kinez : Kali"
+                                    elif (int(mesazhiPerPerpunim[1])%12==11):
+                                          pergjigja = "Viti kinez : Dele"
+                                    else:
+                                        pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                            
+                                else:
+                                    pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                            else: 
+                                pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[15]):
+                            if (len(mesazhiPerPerpunim) == 2):
+                                if (mesazhiPerPerpunim[1].isdigit()):
+                                    if (int(mesazhiPerPerpunim[1]) >= 4 ):
+                                        if  (int(mesazhiPerPerpunim[1]) < 35):
+                                            char_set = string.ascii_uppercase + string.ascii_lowercase + string.digits
+                                            pw= ''.join(random.sample(char_set*6, int(mesazhiPerPerpunim[1])))
+                                            pergjigja = "Passwordi i sugjeruar :"+str(pw)
+                                        else:
+                                            pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35" 
+                                    else:
+                                        pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35"  
+                                else:
+                                    pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+                            else: 
+                                pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[16]):
+                            if len(mesazhiPerPerpunim) == 2:
+                                if (mesazhiPerPerpunim[1] == "Prishtine"):
+                                    pergjigja = "640 metra"
+                                elif(mesazhiPerPerpunim[1] == "Prizren"):
+                                    pergjigja = "400 metra"
+                                elif (mesazhiPerPerpunim[1] == "Peje"):
+                                    pergjigja = "515 metra"
+                                elif  (mesazhiPerPerpunim[1] == "Gjakove"):
+                                    pergjigja = "365 metra"
+                                elif (mesazhiPerPerpunim[1] == "Ferizaj"):
+                                    pergjigja = "500 metra"
+                                elif (mesazhiPerPerpunim[1] == "Gjilani"):
+                                    pergjigja = "590"
+                                elif (mesazhiPerPerpunim[1] == "Mitrovice"):
+                                    pergjigja = "508"
+                                else:
+                                    pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                            else:
+                                pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        elif (mesazhiPerPerpunim[0] == metodat[17]):
+                             if len(mesazhiPerPerpunim) == 2:
+                                 if mesazhiPerPerpunim[1].isdigit():
+                                     if (int(mesazhiPerPerpunim[1])< 80):
+                                        tatimi = 0
+                                        kontributi = int(mesazhiPerPerpunim[1])*0.05
+                                        paga = int(mesazhiPerPerpunim[1]) - kontributi
+                                        x = paga - tatimi
+                                        pergjigja = str(x)
+                                     elif (int(mesazhiPerPerpunim[1]) >=80):
+                                         if (int(mesazhiPerPerpunim[1]) <250):
+                                             kontributi = int(mesazhiPerPerpunim[1])*0.05
+                                             paga = int(mesazhiPerPerpunim[1]) - kontributi
+                                             tatimi = 0.04 * (paga - 80)
+                                             x = paga - tatimi
+                                             pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
+                                 
+                                         elif (int(mesazhiPerPerpunim[1]) < 450):
+                                             kontributi = int(mesazhiPerPerpunim[1])*0.05
+                                             paga = int(mesazhiPerPerpunim[1]) - kontributi
+                                             tatimi = 0.08 * (paga - 250) + 6.8;
+                                             x = paga - tatimi
+                                             pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
+                                         else:
+                                            kontributi = int(mesazhiPerPerpunim[1])*0.05
+                                            paga = int(mesazhiPerPerpunim[1]) - kontributi
+                                            tatimi = 0.1*(paga - 450) + 22.8
+                                            x = paga - tatimi
+                                            pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
+                                 else:
+                                     pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."           
+                             else:
+                                 pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar."
+                        else:
+                            pergjigja = "Sintaksa juaj eshte gabim! Shtypni NDIHMA per t'u informuar." 
+
+                    else:
+                        pergjigja = ("'"+mesazhiPerPerpunim[0]+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
+                    mesazhiKthyer = pergjigja + njesia
+                    connectionSocket.send(mesazhiKthyer.encode("ASCII"))
+                    
+            
+    
+            except Exception:
+                    print("Klienti me IP "+ip+" u diskonektua")
+                    connectionSocket.close()
+                    break
+
+
+
+SERVER_IP = '0.0.0.0'
+SERVER_PORT = 9000
+BUFFER_SIZE = 20
 
 print("|---------------------------------------|")
 print("|            FiekTCP Serveri            |")
 print("|---------------------------------------|")
 
-
-# Mundeson qe cdo IP-adrese te kete mundesi te lidhet ne server permes portit 9000
-serverSocket.bind(('',port))
-print("\nServeri shërben në portin %s" %(port))
-# Deri ne 10 klienta mund te presin per lidhje ne server, ndersa numri i klientave te lidhur eshte i palimituar
-serverSocket.listen(10)
+serverSocket = socket(AF_INET,SOCK_STREAM)
+serverSocket.setsockopt(SOL_SOCKET,SO_REUSEADDR, 1)
+serverSocket.bind((SERVER_IP,SERVER_PORT))
+threads = []
+print("\nServeri sherben ne portin %s" %(SERVER_PORT))
 print("\n\nDuke pritur lidhjen...")
 
-
 while True:
-    
+    serverSocket.listen(4)
+    (connectionSocket, (ip,port)) = serverSocket.accept()
+    newthread = ClientThread(ip,port)
+    newthread.start()
+    threads.append(newthread)
 
-    connectionSocket, adresa= serverSocket.accept()
-    nrKlientit = nrKlientit + 1
-    print("\nKlienti me numer %s u lidh ne server"%nrKlientit)
-    while True:
-        try:
-            mesazhiNgaKlienti = connectionSocket.recv(128).decode("ASCII")
-            print("\nKerkesa e klientit: "+mesazhiNgaKlienti)
-            
-                
-                
-            mesazhiPerPerpunim = mesazhiNgaKlienti.split(' ')
-    
-
-            ipKlientit = adresa[0]
-            portiKlientit = adresa[1]
-            hosti = gethostname()
-   
-            keno = []
-            f = 1
-            pergjigja = " "
-            njesia = " "
-            nrZanore = 0
-    
-            metodat = ['IP','PORT','ZANORE','PRINTO','HOST','TIME','KENO','KONVERTO','FAKTORIEL','NDIHMA','DITET','SHPEJTESIA','MESATARJA','PESHA','HOROSKOPIKINEZ','PASSWORD','LARTESIA','PAGA']
-            zanore = ['A','E','I','O','U','Y','a','e','i','o','u','y']
-            konvertoMetodat = ['CelciusToKelvin','CelciusToFahrenheit','KelvinToFahrenheit','KelvinToCelcius','FahrenheitToKelvin','FahrenheitToCelcius','PoundToKilogram','KilogramToPound']
-
-  
-        
-
-            if mesazhiPerPerpunim[0] in metodat:
-                if (mesazhiNgaKlienti == metodat[0]):
-                    pergjigja = "IP adresa e klientit është "+ipKlientit
-                        
-                elif (mesazhiNgaKlienti == metodat[1]):
-                    pergjigja = "Klienti është duke përdorur portin "+str(portiKlientit)
-                        
-                elif (mesazhiPerPerpunim[0] == metodat[2]):
-                    #metoda zanore
-                    teksti = mesazhiNgaKlienti[mesazhiNgaKlienti.index(' '):]
-                    for i in range(0,len(teksti)):
-                        if(teksti[i] in zanore):
-                            nrZanore = nrZanore + 1
-                    pergjigja = "Teksti i dërguar përmbanë "+str(nrZanore)+" zanore."
-
-                elif (mesazhiPerPerpunim[0] == metodat[3]):
-                    pergjigja = mesazhiNgaKlienti[(mesazhiNgaKlienti.index(' ')+1):]
-
-                elif (mesazhiNgaKlienti ==metodat[4]):
-                    pergjigja = "Emri i serverit është "+hosti
-                        
-                elif (mesazhiNgaKlienti == metodat[5]):
-                    t = time.localtime()    
-                    pergjigja = (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
-
-                elif (mesazhiNgaKlienti == metodat[6]):
-                    for i in range(0,19):
-                        numriRastesishem = random.randint(1,80) 
-                        keno.insert(i,numriRastesishem)
-                    pergjigja = str(keno)
-
-                elif (mesazhiPerPerpunim[0] == metodat[7]):
-                    opsioni = " "
-                    if len(mesazhiPerPerpunim) == 3:
-                        opsioni = mesazhiPerPerpunim[1]
-                        if(mesazhiPerPerpunim[2].isdigit()):
-                            if (opsioni == konvertoMetodat[0]):
-                                #CtK
-                                prgj = 273.16+int(mesazhiPerPerpunim[2])
-                                pergjigja = str(prgj)
-                                njesia = " Kelvin"
-                            elif (opsioni == konvertoMetodat[1]):
-                                #CtF
-                                prgj = (int(mesazhiPerPerpunim[2])*9/5)+32
-                                pergjigja = str(prgj)
-                                njesia = " Farenhajt"
-                            elif (opsioni == konvertoMetodat[2]):
-                                #KtF
-                                prgj = ((int(mesazhiPerPerpunim[2])-273.16)*9/5)+32
-                                pergjigja = str(prgj)
-                                njesia = " Farenhajt"
-                            elif (opsioni == konvertoMetodat[3]):
-                                #KtC
-                                prgj = int(mesazhiPerPerpunim[2])-273.16
-                                pergjigja = str(prgj)
-                                njesia = " Celcius"
-                            elif (opsioni == konvertoMetodat[4]):
-                                #FtK
-                                prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)+273.16
-                                pergjigja = str(prgj)
-                                njesia = " Kelvin"
-                            elif (opsioni == konvertoMetodat[5]):
-                                #FtC
-                                prgj = ((int(mesazhiPerPerpunim[2])-32)*5/9)
-                                pergjigja = str(prgj)
-                                njesia = " Celcius"
-                            elif (opsioni == konvertoMetodat[6]):
-                                #PtK
-                                prgj = int(mesazhiPerPerpunim[2]) / 2.2
-                                pergjigja = str(prgj)
-                                njesia = " Kilogram"
-                            elif (opsioni == konvertoMetodat[7]):
-                                #KtP
-                                prgj = int(mesazhiPerPerpunim[2])*2.2
-                                pergjigja = str(prgj)
-                                njesia = " Pound"
-                        else: pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                    else: pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                
-                elif (mesazhiPerPerpunim[0] == metodat[8]):
-                    if (len(mesazhiPerPerpunim) == 2):
-                        if mesazhiPerPerpunim[1].isdigit():
-                            for i in range (1,int(mesazhiPerPerpunim[1])+1):
-                                f = f * i
-                            pergjigja = str(f)
-                        else:
-                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                    else: 
-                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[9]):
-                    pergjigja = "Metodat e Serverit\n\nMetoda:\t\tPërshkrimi\t\t\t\t\tSintaksa:\n\nIP\t\tKthen IP Adresën e klientit\t\t\tIP\nPORT\t\tKthen Portin e klientit\t\t\t\tPORT\nZANORE\t\tGjen numrin e zanoreve në tekst\t\t\tZANORE{hapësirë}teksti\nPRINTO\t\tShtyp fjalinë e dërguar\t\t\t\tPRINTO{hapësirë}teksti\nHOST\t\tKthen emrin e Hostit\t\t\t\tHOST\nTIME\t\tKthen kohën aktuale në Server\t\t\tTIME\nKENO\t\tKthen 20 numra të rastësishëm nga 1 deri në 80\tKENO\nFAKTORIEL\tKthen faktorielin e numrit të dhënë\t\tFAKTORIEL{hapësirë}numri\nDITET\t\tTregon se sa ditë i vjetër jeni\t\t\tDITET{hapësirë}viti i lindjes{hapësirë}muaji{hapësirë}dita\nSHPEJTESIA\tLlogaritë shpejtesin per rrugen dhe kohen\tSHPEJTESIA{hapësirë}rruga{hapësirë}koha\nMESATARJA\tKthen mesataren e numrave \t\t\tMESATARJA{hapësirë}numri{hapësirë}numri...\nPESHA\t\tKthen peshën ideale për gjatësinë\t\tPESHA{hapësirë}gjatësia(në cm)\nHOROSKOPIKINEZ\tTregon horoskopin kinez e vitit të dhënë\tHOROSKOPIKINEZ{hapësirë}viti\nPASSWORD\tGjeneron nje fjalekalim me gjatesi => 4\t\tPASSWORD{hapësirë}gjatesia\nLARTESIA\tKthen lartesin mbidetare te qyteteve te Kosoves\tLARTESIA{hapësirë}Qyteti\nPAGA\t\tPagen bruto e kthen ne neto\t\t\tPAGA{hapësirë}paga\nKONVERTO\tKonverton njësitë \t\t\t\tKONVERTO{hapësirë}opsioni{hapësirë}numri\n\t\t\t\t\t\t\t\tOpsionet:CelciusToKelvin\n\t\t\t\t\t\t\t\t\tCelciusToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToFahrenheit\n\t\t\t\t\t\t\t\t\tKelvinToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToCelcius\n\t\t\t\t\t\t\t\t\tFahrenheitToKelcin\n\t\t\t\t\t\t\t\t\tPoundToKilogram\n\t\t\t\t\t\t\t\t\tKilogramToPound\n\n"
-                
-                elif (mesazhiPerPerpunim[0] == metodat[10]):  # Metoda DITET  by ERZEN GEGAJ
-                    if len(mesazhiPerPerpunim) == 4:
-                        if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit()) & (mesazhiPerPerpunim[3].isdigit()) & (int(mesazhiPerPerpunim[1]) <= 31 )& (int(mesazhiPerPerpunim[1]) >= 1) & (int(mesazhiPerPerpunim[2]) <= 12) & (int(mesazhiPerPerpunim[2]) >= 1) & (int(mesazhiPerPerpunim[3]) <= 2017) & (int(mesazhiPerPerpunim[3]) >= 1970 )):
-                            if (int(mesazhiPerPerpunim[1]) >= 29) & (int(mesazhiPerPerpunim[2]) == 2):
-                                pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
-                            else:
-                                ditet = datetime.now() - datetime(int(mesazhiPerPerpunim[3]),int(mesazhiPerPerpunim[2]),int(mesazhiPerPerpunim[1]))
-                                pergjigja = "Ju jeni %s ditë i vjetër" % (ditet.days)
-                        else:
-                            pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
-                    else:       
-                        pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[11]):  #METODA SHPEJTESIA by ERZEN GEGAJ
-                     if len(mesazhiPerPerpunim) == 3:
-                         if ((mesazhiPerPerpunim[1].isdigit()) & (mesazhiPerPerpunim[2].isdigit())):
-                             shpejtesia = int(mesazhiPerPerpunim[1]) / int(mesazhiPerPerpunim[2])
-                             pergjigja = "Shpejtesia e llogaritur është " + str('%2.2f' % shpejtesia) + " km/h"
-                     else:
-                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                
-                elif (mesazhiPerPerpunim[0] == metodat[12]):
-                    mesatarja = 0
-                    shuma = 0
-                    for i in range(1,len(mesazhiPerPerpunim)):
-                        shuma = shuma + int(mesazhiPerPerpunim[i])
-                        mesatarja = shuma/(len(mesazhiPerPerpunim)-1)
-                    pergjigja = str(mesatarja)
+for t in threads:
+    t.join()
 
 
-                   
-                elif (mesazhiPerPerpunim[0] == metodat[13]):
-                    if(len(mesazhiPerPerpunim) == 2):
-                       if (mesazhiPerPerpunim[1].isdigit()):
-                           if (int(mesazhiPerPerpunim[1]) >= 100):
-                               pesha = (int(mesazhiPerPerpunim[1])-100)-((int(mesazhiPerPerpunim[1])-100)/10)
-                               njesia = "kg"
-                               pergjigja = "Pesha ideale për gjatësinë tuaj është "+str(pesha)
-                           else:
-                               pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                       else:
-                           pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                    else:
-                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[14]):
-                    if (len(mesazhiPerPerpunim) == 2):
-                        if mesazhiPerPerpunim[1].isdigit():
-                            if (int(mesazhiPerPerpunim[1])%12==0):
-                                  pergjigja = "Viti kinez : Majmun"
-                            elif (int(mesazhiPerPerpunim[1])%12==1):
-                                  pergjigja = "Viti kinez : Gjel"
-                            elif (int(mesazhiPerPerpunim[1])%12==2):
-                                  pergjigja = "Viti kinez : Qen"
-                            elif (int(mesazhiPerPerpunim[1])%12==3):
-                                  pergjigja = "Viti kinez : Derr"
-                            elif (int(mesazhiPerPerpunim[1])%12==4):
-                                  pergjigja = "Viti kinez : Mi"
-                            elif (int(mesazhiPerPerpunim[1])%12==5):
-                                  pergjigja = "Viti kinez : Dem"
-                            elif (int(mesazhiPerPerpunim[1])%12==6):
-                                  pergjigja = "Viti kinez : Tigër"
-                            elif (int(mesazhiPerPerpunim[1])%12==7):
-                                  pergjigja = "Viti kinez : Lepur"
-                            elif (int(mesazhiPerPerpunim[1])%12==8):
-                                  pergjigja = "Viti kinez : Dragon"
-                            elif (int(mesazhiPerPerpunim[1])%12==9):
-                                  pergjigja = "Viti kinez : Gjarper"
-                            elif (int(mesazhiPerPerpunim[1])%12==10):
-                                  pergjigja = "Viti kinez : Kali"
-                            elif (int(mesazhiPerPerpunim[1])==11):
-                                  pergjigja = "Viti kinez : Dele"
-                            else:
-                                pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                            
-                        else:
-                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                    else: 
-                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[15]):
-                    if (len(mesazhiPerPerpunim) == 2):
-                        if (mesazhiPerPerpunim[1].isdigit()):
-                            if (int(mesazhiPerPerpunim[1]) >= 4 ):
-                                if  (int(mesazhiPerPerpunim[1]) < 35):
-                                    char_set = string.ascii_uppercase + string.ascii_lowercase + string.digits
-                                    pw= ''.join(random.sample(char_set*6, int(mesazhiPerPerpunim[1])))
-                                    pergjigja = "Passwordi i sugjeruar :"+str(pw)
-                                else:
-                                    pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35" 
-                            else:
-                                pergjigja = "Gjatesia duhet te jete me e madhe se 4 dhe me e vogel se 35"  
-                        else:
-                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
-                    else: 
-                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[16]):
-                    if len(mesazhiPerPerpunim) == 2:
-                        if (mesazhiPerPerpunim[1] == "Prishtine"):
-                            pergjigja = "640 metra"
-                        elif(mesazhiPerPerpunim[1] == "Prizren"):
-                            pergjigja = "400 metra"
-                        elif (mesazhiPerPerpunim[1] == "Peje"):
-                            pergjigja = "515 metra"
-                        elif  (mesazhiPerPerpunim[1] == "Gjakove"):
-                            pergjigja = "365 metra"
-                        elif (mesazhiPerPerpunim[1] == "Ferizaj"):
-                            pergjigja = "500 metra"
-                        elif (mesazhiPerPerpunim[1] == "Gjilani"):
-                            pergjigja = "590"
-                        elif (mesazhiPerPerpunim[1] == "Mitrovice"):
-                            pergjigja = "508"
-                        else:
-                            pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                    else:
-                        pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                elif (mesazhiPerPerpunim[0] == metodat[17]):
-                     if len(mesazhiPerPerpunim) == 2:
-                         if mesazhiPerPerpunim[1].isdigit():
-                             if (int(mesazhiPerPerpunim[1])< 80):
-                                tatimi = 0
-                                kontributi = int(mesazhiPerPerpunim[1])*0.05
-                                paga = int(mesazhiPerPerpunim[1]) - kontributi
-                                x = paga - tatimi
-                                pergjigja = str(x)
-                             elif (int(mesazhiPerPerpunim[1]) >=80):
-                                 if (int(mesazhiPerPerpunim[1]) <250):
-                                     kontributi = int(mesazhiPerPerpunim[1])*0.05
-                                     paga = int(mesazhiPerPerpunim[1]) - kontributi
-                                     tatimi = 0.04 * (paga - 80)
-                                     x = paga - tatimi
-                                     pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
-                                 
-                                 elif (int(mesazhiPerPerpunim[1]) < 450):
-                                     kontributi = int(mesazhiPerPerpunim[1])*0.05
-                                     paga = int(mesazhiPerPerpunim[1]) - kontributi
-                                     tatimi = 0.08 * (paga - 250) + 6.8;
-                                     x = paga - tatimi
-                                     pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
-                                 else:
-                                    kontributi = int(mesazhiPerPerpunim[1])*0.05
-                                    paga = int(mesazhiPerPerpunim[1]) - kontributi
-                                    tatimi = 0.1*(paga - 450) + 22.8
-                                    x = paga - tatimi
-                                    pergjigja = "Paga e llogaritur eshte: "+ str('%2.2f' % x)
-                         else:
-                             pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."           
-                     else:
-                         pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
-                else:
-                    pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar." 
 
-            else:
-                pergjigja = ("'"+mesazhiPerPerpunim[0]+"' nuk perputhet me ndonje komande te FiekProtocol. Shtypni NDIHMA per t'u informuar.") 
-            mesazhiKthyer = pergjigja + njesia
-            connectionSocket.send(mesazhiKthyer.encode("UTF-8"))
-            
-    
-        except Exception:
-            print("Klienti numër "+str(nrKlientit)+" u diskonektua")
-            connectionSocket.close()
-            break
+
+
