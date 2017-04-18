@@ -13,8 +13,8 @@ while True:
         kerkesa=input("Kerkesa :")
         clientSocket.sendto(kerkesa.encode("ASCII"),(server,port))
         pergjigja, addressa = clientSocket.recvfrom(2048)
-        print("Serveri: "+pergjigja.decode("UTF-8"))
+        print("Serveri: "+pergjigja.decode("ASCII"))
     except TimeoutError:
-        print("Kerkesa deshtoi te dergohej brenda 2 sekondave")
+        print("Kerkesa deshtoi te dergohej brenda 5 sekondave")
 connectionSocket.close() 
 
