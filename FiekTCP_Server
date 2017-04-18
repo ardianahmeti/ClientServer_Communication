@@ -155,6 +155,8 @@ while True:
                             else:
                                 ditet = datetime.now() - datetime(int(mesazhiPerPerpunim[3]),int(mesazhiPerPerpunim[2]),int(mesazhiPerPerpunim[1]))
                                 pergjigja = "Ju jeni %s ditë i vjetër" % (ditet.days)
+                        else:
+                             pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
                     else:       
                         pergjigja = "Kjo datë nuk ekziston ! Shtypni NDIHMA per t'u informuar."
                 elif (mesazhiPerPerpunim[0] == metodat[11]):  #METODA SHPEJTESIA by ERZEN GEGAJ
