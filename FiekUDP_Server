@@ -81,7 +81,7 @@ while True:
                     pergjigja = (str(time.strftime("%d.%m.%y %H:%M:%S", t)))
 
                 elif (mesazhiNgaKlienti == metodat[6]):
-                    for i in range(0,19):
+                    for i in range(0,20):
                         numriRastesishem = random.randint(1,80) 
                         keno.insert(i,numriRastesishem)
                     pergjigja = str(keno)
