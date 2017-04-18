@@ -214,7 +214,7 @@ while True:
                                   pergjigja = "Viti kinez : Gjarper"
                             elif (int(mesazhiPerPerpunim[1])%12==10):
                                   pergjigja = "Viti kinez : Kali"
-                            elif (int(mesazhiPerPerpunim[1])==11):
+                            elif (int(mesazhiPerPerpunim[1])%12==11):
                                   pergjigja = "Viti kinez : Dele"
                             else:
                                 pergjigja = "Sintaksa juaj është gabim! Shtypni NDIHMA per t'u informuar."
