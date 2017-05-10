@@ -11,7 +11,7 @@ try:
         mesazhiPerDergim = input("Mesazhi: ")
         clientSocket.send(mesazhiPerDergim.encode("ASCII"))
         pergjigjjaNgaServeri = clientSocket.recv(2048)
-        print("Serveri: "+pergjigjjaNgaServeri.decode("ASCII"))
+        print("Serveri: "+pergjigjjaNgaServeri.decode("UTF-8"))
         
 except ConnectionRefusedError:
     print("Serveri nuk eshte i startuar!")
